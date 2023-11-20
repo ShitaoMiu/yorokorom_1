@@ -30,6 +30,16 @@ jobs:
         working-directory: backend  # 이 부분을 추가하여 Gradle 빌드를 backend 디렉토리에서 수행합니다.
         run: ./gradlew build
 
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+        with:
+          arguments: build
+          gradle-version: '8.4'
+          wrapper-directory: '/yorokorom/backend/gradle/wrapper'
+
+
+
+
       - name: Build Docker image
         working-directory: backend  # 이 부분을 추가하여 Docker build를 backend 디렉토리에서 수행합니다.
         run: |
