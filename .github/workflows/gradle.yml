@@ -36,7 +36,7 @@ jobs:
         run: gradle build
 
       - name: Build Docker image
-        working-directory: backend
+        working-directory: yorokorom/backend
         run: |
           docker build -t sunnam1607/springboot-images-new:latest .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
