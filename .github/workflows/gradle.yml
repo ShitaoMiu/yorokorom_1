@@ -33,7 +33,8 @@ jobs:
           export PATH=$PWD/gradle-8.4/bin:$PATH
 
       - name: Build with Gradle
-        working-directory: backend  # Gradle 빌드를 backend 디렉토리에서 수행합니다.
+        working-directory: yorokorom/backend  # Gradle 빌드를 yorokorom/backend 디렉토리에서 수행합니다.
+
         run: gradle build
 
       - name: Build Docker image
