@@ -11,15 +11,13 @@ permissions:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./backend
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          path: backend  # 레포지토리를 yorokorom/backend 디렉토리에 체크아웃합니다.
+          path: yorokorom  # 코드를 가져올 디렉토리를 지정합니다.
 
       - name: Set up JDK 11
         uses: actions/setup-java@v3
@@ -34,24 +32,25 @@ jobs:
           export PATH=$PWD/gradle-8.4/bin:$PATH
 
       - name: Build with Gradle
+        working-directory: yorokorom/backend  # Gradle 빌드를 backend 디렉토리에서 수행합니다.
         run: gradle build
 
       - name: Build Docker image
-        working-directory: backend  # Docker build를 backend 디렉토리에서 수행합니다.
+        working-directory: yorokorom/backend  # Docker build를 backend 디렉토리에서 수행합니다.
         run: |
           docker build -t sunnam1607/springboot-images-new:latest .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push sunnam1607/springboot-images-new:latest
- 
+
       - name: SSH into Development Server and Deploy
         uses: appleboy/ssh-action@master
-        with:    
+        with:
           host: ${{ secrets.DEV_SERVER_HOST }}
           username: ${{ secrets.DEV_SERVER_USERNAME }}
-          key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
+          key: ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-           docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
-           docker stop yorokorom-container || true
-           docker rm yorokorom-container || true
-           docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+            docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+            docker stop yorokorom-container || true
+            docker rm yorokorom-container || true
+            docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
