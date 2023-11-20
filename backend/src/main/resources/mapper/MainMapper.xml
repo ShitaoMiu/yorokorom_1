@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.service.com.mapper.MainMapper">
+	<insert id="insertData" parameterType="java.util.HashMap">
+		insert into member(member_id) values("11111111");
+	</insert>
+</mapper>   
