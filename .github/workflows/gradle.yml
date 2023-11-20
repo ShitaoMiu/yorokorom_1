@@ -1,34 +1,52 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
-
-name: Java CI with Gradle
-
+name: Java CI with Gradle 
+  
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - master
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - master
 
 permissions:
-  contents: read
-
+  contents: read 
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
-      with:
-        arguments: build
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25
+        with:
+          arguments: build
+          gradle-version: '8.4'
+          wrapper-directory: '/yorokorom-servers/gradle/wrapper'
+
+      - name: Build Docker image
+        run: |
+          docker build -t sunnam1607/springboot-images-new:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push sunnam1607/springboot-images-new:latest
+ 
+      - name: SSH into Development Server and Deploy
+        uses: appleboy/ssh-action@master
+        with:    
+          host: ${{ secrets.DEV_SERVER_HOST }}
+          username: ${{ secrets.DEV_SERVER_USERNAME }}
+          key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
+          port: ${{ secrets.DEV_SERVER_PORT }}
+          script: |
+           docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
+           docker stop yorokorom-container || true
+           docker rm yorokorom-container || true
+           docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
