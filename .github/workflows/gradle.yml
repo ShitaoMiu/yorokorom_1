@@ -35,29 +35,21 @@ jobs:
         working-directory: yorokorom/backend  # Gradle 빌드를 backend 디렉토리에서 수행합니다.
         run: gradle build
 
-      - name: Docker Login
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-
-
-
       - name: Build Docker image
-        working-directory: yorokorom/backend  # Docker build를 yorokorom/backend 디렉토리에서 수행합니다.
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker build -t sunnam1607/springboot-images-new:latest .
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push sunnam1607/springboot-images-new:latest
-
+ 
       - name: SSH into Development Server and Deploy
         uses: appleboy/ssh-action@master
-        with:
+        with:    
           host: ${{ secrets.DEV_SERVER_HOST }}
           username: ${{ secrets.DEV_SERVER_USERNAME }}
-          key: ${{ secrets.DEV_SERVER_SSH_KEY }}
+          key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
-            docker stop yorokorom-container || true
-            docker rm yorokorom-container || true
-            docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+           docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
+           docker stop yorokorom-container || true
+           docker rm yorokorom-container || true
+           docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
