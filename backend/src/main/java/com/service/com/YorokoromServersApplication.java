@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class YorokoromServersApplication {
 
 	public static void main(String[] args) {
-		System.out.println("ㅌㅊㅌㅌㅌㅌㅌ");
+		System.out.println("ㅌㅊㅌㅌㅌㅌㅌ");  
 		SpringApplication.run(YorokoromServersApplication.class, args);
 	}
  
