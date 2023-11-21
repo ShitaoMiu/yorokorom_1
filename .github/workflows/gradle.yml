@@ -70,3 +70,6 @@ jobs:
             docker stop yorokorom-container || true
             docker rm yorokorom-container || true
             docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+            cd /yorokorom/frontend
+            npm install
+            nohup npm start &
