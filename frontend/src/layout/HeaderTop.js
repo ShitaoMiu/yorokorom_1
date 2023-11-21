@@ -9,9 +9,7 @@ const HeaderTop = () => {
 
       <div className="headerBtnArea test">
         <ul className="navbar_icons_ul">
-          <li className="navbar_icons_li">
-            <a href="#">Login</a>
-          </li>
+          <li className="navbar_icons_li"></li>
           <li className="navbar_icons_li">
             <i className="fab fa-twitter"></i>
           </li>

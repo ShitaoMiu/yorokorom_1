@@ -1,5 +1,5 @@
-import axios from "axios";
-import React, { useEffect, useState, useReducer } from "react";
+// import axios from "axios";
+import React, { useEffect, useReducer } from "react";
 import fetchCommonData from "../commonData/CommonData";
 
 const initialState = {
@@ -30,10 +30,10 @@ const MenuNavArea = () => {
       try {
         const commonDataResponse = await fetchCommonData();
         const firstDepthMenus = commonDataResponse.menus.filter(
-          (menu) => menu.MENU_LEVEL == "1"
+          (menu) => menu.MENU_LEVEL === "1"
         );
         const secondDepthMenus = commonDataResponse.menus.filter(
-          (menu) => menu.MENU_LEVEL == "2"
+          (menu) => menu.MENU_LEVEL === "2"
         );
 
         dispatch({
@@ -54,7 +54,7 @@ const MenuNavArea = () => {
   useEffect(() => {
     const navMenuLiList = document.querySelectorAll(".nav_menu_li");
     const subMenuUlAreaList = document.querySelectorAll(".sub_menu_ul_area");
-    const subMenuUlArea = document.querySelector(".sub_menu_ul_area");
+    // const subMenuUlArea = document.querySelector(".sub_menu_ul_area");
     navMenuLiList.forEach((elem, index) => {
       elem.addEventListener("click", function () {
         subMenuUlAreaList.forEach((subMenuUlArea, index) => {

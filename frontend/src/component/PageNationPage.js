@@ -6,7 +6,7 @@ const PageNationPage = ({ totalCount }) => {
   const boardSetData = useContext(BbsSettingContext);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentBlock, setCurrentBlock] = useState(1);
+  // const [currentBlock, setCurrentBlock] = useState(1);
   const pagePerArti = boardSetData ? boardSetData.pagePerArti : 10;
   const grpPerPage = boardSetData ? boardSetData.grpPerPage : 10;
   const totalItems = totalCount;
@@ -21,7 +21,7 @@ const PageNationPage = ({ totalCount }) => {
 
   // 현재 블록 번호 계산
   useEffect(() => {
-    setCurrentBlock(Math.ceil(currentPage / grpPerPage));
+    // setCurrentBlock(Math.ceil(currentPage / grpPerPage));
   }, [currentPage, grpPerPage]);
 
   if (pagePerArti) {
