@@ -3,7 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Board from "./common/Board";
 import { useEffect } from "react";
 function App() {
-  useEffect(() => console.log("app is loading!!!!!!!!!!!!!!!!!!"), []);
+  useEffect(
+    () => console.log("app is loading!!!!22222222222222!!!!!!!!!!!!!!"),
+    []
+  );
   return (
     <BrowserRouter>
       <Routes>
