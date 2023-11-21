@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, useParams } from "react-router-dom"; // useParams를 import
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom"; // useParams를 import
 import BoardList from "../component/BoardList";
 import BoardEdit from "../component/BoardEdit";
 import BoardView from "../component/BoardView";
@@ -26,23 +26,23 @@ const Board = () => {
         setBoardSettData(bbsMasterEntity);
       })
       .catch((error) => console.log(error));
-  }, [window.location.pathname]);
+  }, [window.location.pathname, bbsId]);
 
   return (
     <BbsSettingContext.Provider value={boardSettData}>
-      {currentUrl == "list" ? (
+      {currentUrl === "list" ? (
         <Layout>
           <BoardList />
         </Layout>
-      ) : currentUrl == "new" ? (
+      ) : currentUrl === "new" ? (
         <Layout>
           <BoardEdit />
         </Layout>
-      ) : currentUrl == "edit" ? (
+      ) : currentUrl === "edit" ? (
         <Layout>
           <BoardEdit />
         </Layout>
-      ) : currentUrl == "post" ? (
+      ) : currentUrl === "post" ? (
         <Layout>
           <BoardView postId={postId} />
         </Layout>

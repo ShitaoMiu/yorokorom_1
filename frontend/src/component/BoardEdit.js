@@ -90,7 +90,7 @@ const BoardEdit = () => {
         ></input>
       </div>
       <div className="editContent">
-        {boardSetting?.isUseEditor == "Y" ? (
+        {boardSetting?.isUseEditor === "Y" ? (
           <ToastEditor
             ref={toastEditorRef}
             onContentChange={(content) => setBoardContent(content)}
