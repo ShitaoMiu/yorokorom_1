@@ -45,7 +45,8 @@ jobs:
       - name: Build Docker image
         working-directory: yorokorom/backend
         run: |
-          docker build -t sunnam1607/springboot-images-new:latest -f Dockerfile.multi-stage .
+          cp -R ../frontend/build/* src/main/resources/static/
+          docker build -t sunnam1607/springboot-images-new:latest .
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
           docker push sunnam1607/springboot-images-new:latest
 
@@ -61,7 +62,7 @@ jobs:
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
-            docker stop yorokorom-container || true
-            docker rm yorokorom-container || true
-            docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+           docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
+           docker stop yorokorom-container || true
+           docker rm yorokorom-container || true
+           docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
