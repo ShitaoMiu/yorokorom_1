@@ -56,15 +56,11 @@ const BoardEdit = () => {
         boardData.append("files", files[i]);
       }
 
-      const response = await axios.post(
-        "http://localhost:8080/board/writeAction",
-        boardData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      await axios.post("http://localhost:8080/board/writeAction", boardData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       setLoading(false);
       alert("글을 저장완료 하였습니다");
     } catch (error) {
@@ -74,9 +70,9 @@ const BoardEdit = () => {
     }
   };
 
-  const goList = () => {
-    Navigate("/board/" + boardSetting.bbsId);
-  };
+  // const goList = () => {
+  //   Navigate("/board/" + boardSetting.bbsId);
+  // };
 
   return (
     <div className="boardEdit">

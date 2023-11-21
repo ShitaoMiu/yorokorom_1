@@ -5,25 +5,7 @@ const Footer = () => {
     <div className="Footer">
       <section>
         <div className="footer_li test">
-          <nav>
-            <ul>
-              <li>
-                <a href="#">개인정보</a>
-              </li>
-              <li>
-                <a href="#">회사소개</a>
-              </li>
-              <li>
-                <a href="#">공지사항</a>
-              </li>
-              <li>
-                <a href="#">이용약관</a>
-              </li>
-              <li>
-                <a href="#">처리방침</a>
-              </li>
-            </ul>
-          </nav>
+          <nav></nav>
         </div>
         <div className="footer_info test">
           <div className="footer_img test">

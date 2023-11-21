@@ -5,7 +5,7 @@ import PageNationPage from "./PageNationPage";
 import axios from "axios";
 const BoardList = () => {
   const [nowPage, setNowPage] = useState(1);
-  const [boardSetting, setBoardSetting] = useState(null);
+  // const [boardSetting, setBoardSetting] = useState(null);
   const boardSetData = useContext(BbsSettingContext);
   const [posts, setPosts] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
@@ -13,8 +13,8 @@ const BoardList = () => {
 
   useEffect(() => {
     if (boardSetData && boardSetData.bbsId && boardSetData.pagePerArti) {
-      setBoardSetting(boardSetData);
-
+      // setBoardSetting(boardSetData);
+      setNowPage(1);
       const fetchPostData = async () => {
         try {
           const response = await axios.get(
@@ -32,7 +32,7 @@ const BoardList = () => {
       };
       fetchPostData();
     }
-  }, [boardSetData?.bbsId, nowPage]);
+  }, [boardSetData?.bbsId, nowPage, boardSetData]);
 
   const handleBoardEdit = () => {
     Navigate("/board/1/new");

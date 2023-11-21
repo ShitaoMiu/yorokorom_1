@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { BbsSettingContext } from "../common/Board";
-import ToastEditor from "../component/ToastEditor";
 import MyButton from "../common/ComButton";
 
 const BoardView = ({ postId }) => {
-  const titleInputRef = useRef();
-  const contentsAreaRef = useRef();
-  const toastEditorRef = useRef(); // ToastEditor의 ref
+  // const titleInputRef = useRef();
+  // const contentsAreaRef = useRef();
+  // const toastEditorRef = useRef(); // ToastEditor의 ref
 
   const [post, setPost] = useState({
     nttSj: "",
     nttCn: "",
     regDate: "",
   });
-  const [boardSetting, setBoardSetting] = useState(null);
+  // const [boardSetting, setBoardSetting] = useState(null);
   const boardSetData = useContext(BbsSettingContext);
   const Navigate = useNavigate();
   const formatDate = (timestamp) => {
@@ -27,7 +26,7 @@ const BoardView = ({ postId }) => {
 
   useEffect(() => {
     if (boardSetData) {
-      setBoardSetting(boardSetData);
+      // setBoardSetting(boardSetData);
       axios
         .get(`http://localhost:8080/board/${boardSetData.bbsId}/post/${postId}`)
         .then((response) => {

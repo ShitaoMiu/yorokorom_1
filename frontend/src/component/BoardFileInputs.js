@@ -1,6 +1,5 @@
 import React from "react";
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
 import { BbsSettingContext } from "../common/Board";
 
 const BoardFileInputs = ({ onFileInputChange }) => {
