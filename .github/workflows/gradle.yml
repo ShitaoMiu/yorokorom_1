@@ -37,7 +37,10 @@ jobs:
 
       - name: Build with Gradle
         working-directory: yorokorom/backend
-        run: ./gradlew build
+        
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
 
       - name: Build Docker image
         working-directory: yorokorom/backend
