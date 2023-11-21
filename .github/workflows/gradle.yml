@@ -31,6 +31,17 @@ jobs:
           unzip -q gradle-8.4-bin.zip
           export PATH=$PWD/gradle-8.4/bin:$PATH
 
+      - name: Build React App
+        working-directory: yorokorom/frontend
+        run: |
+          npm install
+          npm run build
+
+      - name: Copy React Build to Spring Boot
+        run: |
+          rm -rf yorokorom/backend/src/main/resources/static/*
+          cp -R yorokorom/frontend/build/* yorokorom/backend/src/main/resources/static/
+
       - name: Build with Gradle
         working-directory: yorokorom/backend  # Gradle 빌드를 backend 디렉토리에서 수행합니다.
         run: gradle build
