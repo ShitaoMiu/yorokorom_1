@@ -1,13 +1,12 @@
-name: Java CI with Gradle
-  
+name: Optimized Build and Deploy
+
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
-
-permissions:
-  contents: read
+    branches:
+      - main
 
 jobs:
   build:
@@ -15,26 +14,20 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
         with:
-          path: yorokorom  # 코드를 가져올 디렉토리를 지정합니다.
+          path: yorokorom
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v2
         with:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Install Gradle
-        run: |
-          wget https://services.gradle.org/distributions/gradle-8.4-bin.zip
-          unzip -q gradle-8.4-bin.zip
-          export PATH=$PWD/gradle-8.4/bin:$PATH
-
-      - name: Build React App
+      - name: Build React App and Install npm packages
         working-directory: yorokorom/frontend
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Copy React Build to Spring Boot
@@ -42,9 +35,16 @@ jobs:
           rm -rf yorokorom/backend/src/main/resources/static/*
           cp -R yorokorom/frontend/build/* yorokorom/backend/src/main/resources/static/
 
+      - name: Start React App
+        working-directory: yorokorom/frontend
+        run: |
+          nohup npm start &
+
       - name: Build with Gradle
-        working-directory: yorokorom/backend  # Gradle 빌드를 backend 디렉토리에서 수행합니다.
-        run: gradle build
+        working-directory: yorokorom/backend
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
 
       - name: Build Docker image
         working-directory: yorokorom/backend
@@ -66,7 +66,7 @@ jobs:
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-           docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
-           docker stop yorokorom-container || true
-           docker rm yorokorom-container || true
-           docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
+            docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
+            docker stop yorokorom-container || true
+            docker rm yorokorom-container || true
+            docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
