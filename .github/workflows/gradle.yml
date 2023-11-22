@@ -14,13 +14,13 @@ jobs:
         run: |
           pwd
           ls -a
-          ls -a ./github
-          ls -a ./github/workspace
-          ls -a ./github/workspace/yorokorom
-          ls -a ./github/workspace/yorokorom/backend
-          ls -a ./github/workspace/yorokorom/frontend
-          ls -a ./github/workspace/yorokorom/docker-compose.yml
-        working-directory: /github/workspace  # 추가된 부분 
+          ls -a /github
+          ls -a /github/workspace
+          ls -a /github/workspace/yorokorom
+          ls -a /github/workspace/yorokorom/backend
+          ls -a /github/workspace/yorokorom/frontend
+          ls -a /github/workspace/yorokorom/docker-compose.yml
+ 
 
 
   build-frontend:
@@ -52,4 +52,4 @@ jobs:
       - name: Deploy
         run: |
           pwd
-          cd ./yorokorom && docker-compose up -d
+          cd /github/workspace/yorokorom && docker-compose up -d
