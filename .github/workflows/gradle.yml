@@ -44,8 +44,8 @@ jobs:
     steps:
       - name: Deploy
         run: |
-           # 현재 위치에서부터 상위 디렉토리에서부터 찾기 시작
-           project_dir=$(find . -type d -name "yorokorom" | head -n 1)
+           project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
+
             if [ -n "$project_dir" ]; then
               cd "$project_dir"
               pwd
@@ -55,4 +55,4 @@ jobs:
               echo "Couldn't find the 'yorokorom' directory."
               exit 1
             fi
-          
+            
