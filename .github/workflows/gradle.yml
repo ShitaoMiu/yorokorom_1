@@ -1,67 +1,37 @@
-name: Optimized Build and Deploy
+name: CI/CD
 
 on:
   push:
     branches:
       - main
-  pull_request:
-    branches:
-      - main
 
 jobs:
-  build:
+  build-frontend:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-        with:
-          path: yorokorom
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
-        with:
-          java-version: '11'
-          distribution: 'temurin'
-
-      - name: Build React App and Install npm packages
-        working-directory: yorokorom/frontend
+      - name: Build Frontend
         run: |
-          npm ci
-          npm run build
+          cd frontend
+          docker build -t your-frontend-image-name:tag .
+      
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Copy React Build to Spring Boot
+      - name: Build Backend
         run: |
-          rm -rf yorokorom/backend/src/main/resources/static/*
-          cp -R yorokorom/frontend/build/* yorokorom/backend/src/main/resources/static/
-
-      - name: Build with Gradle
-        working-directory: yorokorom/backend
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build
-
-      - name: Build Docker image
-        working-directory: yorokorom/backend
-        run: |
-          cp -R ../frontend/build/* src/main/resources/static/
-          docker build -t sunnam1607/springboot-images-new:latest .
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push sunnam1607/springboot-images-new:latest
+          cd backend
+          docker build -t your-backend-image-name:tag .
 
   deploy:
     runs-on: ubuntu-latest
-    needs: build
+    needs: [build-frontend, build-backend]
     steps:
-      - name: SSH into Development Server and Deploy
-        uses: appleboy/ssh-action@master
-        with:    
-          host: ${{ secrets.DEV_SERVER_HOST }}
-          username: ${{ secrets.DEV_SERVER_USERNAME }}
-          key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
-          port: ${{ secrets.DEV_SERVER_PORT }}
-          script: |
-            docker pull sunnam1607/springboot-images-new:latest
-            docker stop yorokorom-container || true
-            docker rm yorokorom-container || true
-            docker run -d -p 8080:8080 --name yorokorom-container sunnam1607/springboot-images-new:latest
+      - name: Deploy
+        run: |
+          docker-compose up -d
