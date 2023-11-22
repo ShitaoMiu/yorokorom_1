@@ -50,7 +50,7 @@ jobs:
     steps:
       - name: Deploy
         run: |
-          cd yorokorom
+          cd /github/workspace/yorokorom
           pwd
           ls -a
           docker-compose up -d
