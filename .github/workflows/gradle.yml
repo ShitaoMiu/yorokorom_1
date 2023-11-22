@@ -12,39 +12,42 @@ jobs:
     steps:
       - name: Check Path
         run: |
-           project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
+          project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
   
-            if [ -n "$project_dir" ]; then
-              cd "$project_dir"
-              pwd
-              echo "yorokorom list is.............."
-              ls -a
-              
-              # Check if .dockerignore file exists and show its content
-              if [ -f ".dockerignore" ]; then
-                echo "Contents of .dockerignore:"
-                cat .dockerignore
-              else
-                echo "No .dockerignore file found in the project."
-              fi
-              
-              # Check the existence of Dockerfile in the backend context
-              if [ -f "backend/Dockerfile" ]; then
-                echo "Dockerfile found in backend context."
-              else
-                echo "Dockerfile not found in backend context."
-              fi
-              
-              # Check the existence of Dockerfile in the frontend context
-              if [ -f "frontend/Dockerfile" ]; then
-                echo "Dockerfile found in frontend context."
-              else
-                echo "Dockerfile not found in frontend context."
-              fi
+          if [ -n "$project_dir" ]; then
+            cd "$project_dir"
+            pwd
+            echo "yorokorom list is.............."
+            ls -a
+          
+            # Check if .dockerignore file exists and show its content
+            if [ -f ".dockerignore" ]; then
+              echo "Contents of .dockerignore:"
+              cat .dockerignore
             else
-              echo "Couldn't find the 'yorokorom' directory."
+              echo "No .dockerignore file found in the project."
+            fi
+          
+            # Check the existence of Dockerfile in the backend context
+            if [ -f "backend/Dockerfile" ]; then
+              echo "Dockerfile found in backend context."
+            else
+              echo "Dockerfile not found in backend context."
               exit 1
             fi
+          
+            # Check the existence of Dockerfile in the frontend context
+            if [ -f "frontend/Dockerfile" ]; then
+              echo "Dockerfile found in frontend context."
+            else
+              echo "Dockerfile not found in frontend context."
+              exit 1
+            fi
+          else
+            echo "Couldn't find the 'yorokorom' directory."
+            exit 1
+          fi
+
 
           
 
