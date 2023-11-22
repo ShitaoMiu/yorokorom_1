@@ -34,7 +34,8 @@ jobs:
     steps:
       - name: Check Path
         run: |
-          project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
+          # Find 'yorokorom' directory and set it as the project directory
+          project_dir=$(find "$(pwd)" -type d -name "yorokorom" 2>/dev/null | head -n 1)
 
           if [ -n "$project_dir" ]; then
             cd "$project_dir"
@@ -45,6 +46,9 @@ jobs:
             # Check the existence of Dockerfile in the backend context
             if [ -f "backend/Dockerfile" ]; then
               echo "Dockerfile found in backend context."
+              cd backend
+              ls -l Dockerfile
+              cat Dockerfile
             else
               echo "Dockerfile not found in backend context."
               exit 1
