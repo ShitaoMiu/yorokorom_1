@@ -46,9 +46,11 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [check-path, build-frontend, build-backend]
+    needs: [build-frontend, build-backend]
     steps:
       - name: Deploy
         run: |
           pwd
-          cd /workspace/yorokorom && docker-compose up -d
+          ls -a
+          cd /github/workspace/yorokorom && ls -a
+          docker-compose up -d
