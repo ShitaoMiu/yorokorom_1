@@ -29,7 +29,7 @@ jobs:
           docker build -t your-backend-image-name:tag .
 
    
-check-path:
+  check-path:
     runs-on: ubuntu-latest
     steps:
       - name: Check Path
