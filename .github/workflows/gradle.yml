@@ -35,11 +35,6 @@ jobs:
           rm -rf yorokorom/backend/src/main/resources/static/*
           cp -R yorokorom/frontend/build/* yorokorom/backend/src/main/resources/static/
 
-      - name: Start React App
-        working-directory: yorokorom/frontend
-        run: |
-          nohup npm start &
-
       - name: Build with Gradle
         working-directory: yorokorom/backend
         run: |
@@ -66,10 +61,7 @@ jobs:
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            docker pull ${{ secrets.DEV_DOCKER_HUB_LASTEST }}  
+            docker pull sunnam1607/springboot-images-new:latest
             docker stop yorokorom-container || true
             docker rm yorokorom-container || true
-            docker run -d -p 8080:8080 --name yorokorom-container ${{ secrets.DEV_DOCKER_HUB_LASTEST }}
-            cd /yorokorom/frontend
-            npm install
-            nohup npm start &
+            docker run -d -p 8080:8080 --name yorokorom-container sunnam1607/springboot-images-new:latest
