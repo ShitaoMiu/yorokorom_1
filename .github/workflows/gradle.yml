@@ -13,18 +13,12 @@ jobs:
       - name: Check Path
         run: |
           project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
-      
+
           if [ -n "$project_dir" ]; then
             cd "$project_dir"
-            if [ -f "docker-compose.yml" ]; then
-              pwd
-               echo "yorokorom list is.............."
-              ls -a ./yorokorom
-              docker-compose up -d
-            else
-              echo "Couldn't find 'docker-compose.yml' in the 'yorokorom' directory."
-              exit 1
-            fi
+            pwd
+            echo "yorokorom list is.............."
+            ls -a
           else
             echo "Couldn't find the 'yorokorom' directory."
             exit 1
@@ -54,28 +48,4 @@ jobs:
           cd backend
           docker build -t your-backend-image-name:tag .
 
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build-frontend, build-backend]
-    steps:
-      - name: Deploy
-        run: |
-      - name: Deploy
-        run: |
-          project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
-      
-          if [ -n "$project_dir" ]; then
-            cd "$project_dir"
-            if [ -f "docker-compose.yml" ]; then
-              pwd
-               echo "yorokorom list is.............."
-              ls -a ./yorokorom
-              docker-compose up -d
-            else
-              echo "Couldn't find 'docker-compose.yml' in the 'yorokorom' directory."
-              exit 1
-            fi
-          else
-            echo "Couldn't find the 'yorokorom' directory."
-            exit 1
-          fi
+   
