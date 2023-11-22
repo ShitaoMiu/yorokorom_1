@@ -52,5 +52,5 @@ jobs:
         run: |
           pwd
           ls -a
-          cd /github/workspace/yorokorom && ls -a
+          cd /github/workspace && ls -a
           docker-compose up -d
