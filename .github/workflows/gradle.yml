@@ -52,4 +52,4 @@ jobs:
       - name: Deploy
         run: |
           pwd
-          cd ./github/workspace/yorokorom && docker-compose up -d
+          cd /github/workspace/yorokorom && docker-compose up -d
