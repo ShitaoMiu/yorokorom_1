@@ -44,15 +44,21 @@ jobs:
     steps:
       - name: Deploy
         run: |
-           project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
-
-            if [ -n "$project_dir" ]; then
-              cd "$project_dir"
+      - name: Deploy
+        run: |
+          project_dir=$(find / -type d -name "yorokorom" 2>/dev/null | head -n 1)
+      
+          if [ -n "$project_dir" ]; then
+            cd "$project_dir"
+            if [ -f "docker-compose.yml" ]; then
               pwd
               ls -a
               docker-compose up -d
             else
-              echo "Couldn't find the 'yorokorom' directory."
+              echo "Couldn't find 'docker-compose.yml' in the 'yorokorom' directory."
               exit 1
             fi
-            
+          else
+            echo "Couldn't find the 'yorokorom' directory."
+            exit 1
+          fi
