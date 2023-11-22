@@ -6,6 +6,23 @@ on:
       - main
  
 jobs:
+
+  check-path:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Path
+        run: |
+          pwd
+          ls -a
+          ls -a ./github
+          ls -a ./github/workspace
+          ls -a ./github/workspace/yorokorom
+          ls -a ./github/workspace/yorokorom/backend
+          ls -a ./github/workspace/yorokorom/frontend
+          ls -a ./github/workspace/yorokorom/docker-compose.yml
+
+
+
   build-frontend:
     runs-on: ubuntu-latest
     steps:
