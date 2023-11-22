@@ -4,7 +4,10 @@ import Board from "./common/Board";
 import { useEffect } from "react";
 function App() {
   useEffect(
-    () => console.log("app is loading!!!!22222222222222!!!!!!!!!!!!!!"),
+    () =>
+      console.log(
+        "app is loading!!!!22222222222221231231231231232!!!!!!!!!!!!!!"
+      ),
     []
   );
   return (
