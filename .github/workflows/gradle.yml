@@ -52,7 +52,8 @@ jobs:
             cd "$project_dir"
             if [ -f "docker-compose.yml" ]; then
               pwd
-              ls -a
+               echo "yorokorom list is.............."
+              ls -a ./yorokorom
               docker-compose up -d
             else
               echo "Couldn't find 'docker-compose.yml' in the 'yorokorom' directory."
