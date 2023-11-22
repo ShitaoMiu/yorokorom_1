@@ -61,4 +61,3 @@ jobs:
             echo "Couldn't find the 'yorokorom' directory."
             exit 1
           fi
-
