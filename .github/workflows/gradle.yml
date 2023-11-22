@@ -18,14 +18,4 @@ jobs:
           docker build -t your-frontend-image-name:tag .
           echo "Frontend image built and tagged as your-frontend-image-name:tag"
 
-  build-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Build Backend
-        run: |
-          cd backend
-          docker build -t your-backend-image-name:tag .
-          echo "Backend image built and tagged as your-backend-image-name:tag"
+  
