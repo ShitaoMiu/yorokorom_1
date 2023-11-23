@@ -36,13 +36,18 @@ jobs:
 
       - name: Deploy to Development Server
         uses: appleboy/ssh-action@master
-        with:    
+        with:
           host: ${{ secrets.DEV_SERVER_HOST }}
           username: ${{ secrets.DEV_SERVER_USERNAME }}
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            docker-compose -f yorokorom/docker-compose.yml pull
-            docker-compose -f yorokorom/docker-compose.yml down
-            docker-compose -f yorokorom/docker-compose.yml up -d
+            cd yorokorom
+            echo "Current working directory: $(pwd)"
+            ls -la  # 현재 디렉토리 내의 파일 및 디렉토리 목록 출력
+            
+            docker-compose -f docker-compose.yml pull
+            docker-compose -f docker-compose.yml down
+            docker-compose -f docker-compose.yml up -d
+            
             echo "Deployment completed."
