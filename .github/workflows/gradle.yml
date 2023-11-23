@@ -43,11 +43,5 @@ jobs:
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
             cd yorokorom
-            echo "Current working directory: $(pwd)"
-            ls -la  # 현재 디렉토리 내의 파일 및 디렉토리 목록 출력
-            
-            docker-compose -f docker-compose.yml pull
-            docker-compose -f docker-compose.yml down
-            docker-compose -f docker-compose.yml up -d
-            
-            echo "Deployment completed."
+            ls -la
+ 
