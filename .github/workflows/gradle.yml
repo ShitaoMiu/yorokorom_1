@@ -43,4 +43,8 @@ jobs:
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
             cd /home/tigggi
+            git clone https://github.com/ShitaoMiu/yorokorom.git  # 레포지토리 클론
+            cd yorokorom  # 클론한 레포지토리로 이동
             docker-compose -f docker-compose.yml up -d
+
+
