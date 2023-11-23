@@ -42,6 +42,5 @@ jobs:
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            cd yorokorom
-            ls -la
- 
+            cd /home/tigggi
+            docker-compose -f docker-compose.yml up -d
