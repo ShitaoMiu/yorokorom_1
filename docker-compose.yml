@@ -2,17 +2,13 @@ version: "3.8"
 
 services:
   backend:
-    image: yorokorom-backend:v1
+    image: sunnam1607/yorokorom-backend:v1
     restart: always
     ports:
       - "8080:8080"
-    volumes:
-      - ./backend:/backend  # Mounting backend directory
 
   frontend:
-    image: yorokorom-frontend:v1
+    image: sunnam1607/yorokorom-frontend:v1
     restart: always
     ports:
       - "3000:80"
-    volumes:
-      - ./frontend:/frontend  # Mounting frontend directory
