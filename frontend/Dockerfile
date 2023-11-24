@@ -25,7 +25,7 @@ COPY --from=build /app/build /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Add custom Nginx configuration file
-COPY nginx-custom.conf /etc/nginx/conf.d/
+COPY nginx.conf /etc/nginx/conf.d/
 
 # Expose port 80 to the outside world
 EXPOSE 80
