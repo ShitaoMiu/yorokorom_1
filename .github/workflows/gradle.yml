@@ -51,15 +51,6 @@ jobs:
             
             git clone https://github.com/ShitaoMiu/yorokorom.git  # 레포지토리 클론
             cd yorokorom  # 클론한 레포지토리로 이동
-           
-           
-             
-            # MySQL 설치
-            sudo apt-get update
-            sudo apt-get install -y mysql-server
-            
-            # MySQL 접속
-            mysql -u root -p"${{ secrets.MYSQL_ROOT_PASSWORD }}" -e "CREATE DATABASE IF NOT EXISTS yorokorom;"
             docker-compose -f docker-compose.yml up -d
            
            
