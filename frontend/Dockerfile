@@ -1,9 +1,29 @@
-FROM node:17-alpine3.12
+# Use an official Node runtime as a parent image
+FROM node:14-alpine as build
+
+# Set the working directory in the container
 WORKDIR /app
-ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json .
-COPY package-lock.json .
-RUN npm install # -g npm@8.9.0
+
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
+
+# Install app dependencies
+RUN npm install
+
+# Copy the rest of the application code to the container
 COPY . .
+
+# Build the React app for production
+RUN npm run build
+
+# Use an official Nginx runtime as a parent image
+FROM nginx:alpine
+
+# Copy the built React app from the build stage
+COPY --from=build /app/build /usr/share/nginx/html
+
+# Expose port 80 to the outside world
 EXPOSE 80
-CMD ["npm", "start"]
+
+# Command to run on container start
+CMD ["nginx", "-g", "daemon off;"]
