@@ -10,3 +10,12 @@ services:
     ports: 
       - "3000:80"
       
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    image: sunnam1607/yorokorom-backend:v2
+    restart: always
+    ports:
+      - "8080:8080"
