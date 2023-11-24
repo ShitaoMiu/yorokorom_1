@@ -1,10 +1,10 @@
 name: CI/CD
-
+    
 on:
   push:
     branches:
       - main
-
+ 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -43,8 +43,12 @@ jobs:
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
             cd /home/tigggi
+            
+            # 디렉토리가 이미 존재하면 삭제
+            if [ -d "yorokorom" ]; then
+              rm -rf yorokorom
+            fi
+            
             git clone https://github.com/ShitaoMiu/yorokorom.git  # 레포지토리 클론
             cd yorokorom  # 클론한 레포지토리로 이동
             docker-compose -f docker-compose.yml up -d
-
-
