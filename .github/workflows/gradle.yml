@@ -23,17 +23,7 @@ jobs:
           docker push sunnam1607/yorokorom-frontend:v2
           echo "Frontend image built and pushed to Docker Hub as sunnam1607/yorokorom-frontend:v2"
 
-      - name: Build and Push Backend Docker Image
-        run: |
-          cd backend
-          docker build -t sunnam1607/yorokorom-backend:v2 .
-          
-          # Docker Hub 로그인 추가
-          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-          
-          docker push sunnam1607/yorokorom-backend:v2
-          echo "Backend image built and pushed to Docker Hub as sunnam1607/yorokorom-backend:v2"
-
+     
       - name: Deploy to Development Server
         uses: appleboy/ssh-action@master
         with:
@@ -42,15 +32,14 @@ jobs:
           key:  ${{ secrets.DEV_SERVER_SSH_KEY }}
           port: ${{ secrets.DEV_SERVER_PORT }}
           script: |
-            cd /home/tigggi
-            
+            cd /home
             # 디렉토리가 이미 존재하면 삭제
             if [ -d "yorokorom" ]; then
               rm -rf yorokorom 
             fi
-            
-            git clone https://github.com/ShitaoMiu/yorokorom.git  # 레포지토리 클론
-            cd yorokorom  # 클론한 레포지토리로 이동
+             # 레포지토리 클론
+            git clone https://github.com/ShitaoMiu/yorokorom.git 
+            cd yorokorom   
             docker-compose -f docker-compose.yml up -d
            
            
