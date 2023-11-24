@@ -26,5 +26,5 @@ COPY --from=builder /frontend/build /usr/share/nginx/html
 # 포트 80 노출
 EXPOSE 80
 
-# Nginx 시작
+# Nginx 시작 
 CMD ["nginx", "-g", "daemon off;"]
