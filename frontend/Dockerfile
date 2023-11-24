@@ -24,7 +24,7 @@ RUN apt-get update && apt-get install -y nginx
 COPY --from=builder /frontend/build /usr/share/nginx/html
 
 # 포트 80 노출
-EXPOSE 3000
+EXPOSE 80
 
 # Nginx 시작
 CMD ["nginx", "-g", "daemon off;"]
