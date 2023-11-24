@@ -2,14 +2,20 @@ version: "3.8"
 
 services:
   backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     image: sunnam1607/yorokorom-backend:v2
     restart: always
     ports:
       - "8080:8080"
 
   frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
     image: sunnam1607/yorokorom-frontend:v2
     restart: always
     ports: 
-      - "3000:80"
+      - "3000:3000"
       
