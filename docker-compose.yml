@@ -8,5 +8,5 @@ services:
     image: sunnam1607/yorokorom-frontend:v2
     restart: always
     ports: 
-      - "3000:80"
+      - "80:3000"
       
