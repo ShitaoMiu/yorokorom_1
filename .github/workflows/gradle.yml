@@ -46,7 +46,7 @@ jobs:
             
             # 디렉토리가 이미 존재하면 삭제
             if [ -d "yorokorom" ]; then
-              rm -rf yorokorom
+              rm -rf yorokorom 
             fi
             
             git clone https://github.com/ShitaoMiu/yorokorom.git  # 레포지토리 클론
